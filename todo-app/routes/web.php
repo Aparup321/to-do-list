@@ -6,7 +6,7 @@ use App\Models\Task;
 
 Route::get('/', function () {
     $tasks = Task::latest()->get();
-    return view('tasks.index', compact('tasks'));
+    return view('index', compact('tasks'));
 })->name('tasks.index');
 
 Route::post('/tasks', function (Request $request) {
