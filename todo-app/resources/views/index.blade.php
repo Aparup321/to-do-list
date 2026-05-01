@@ -110,6 +110,14 @@
 <body>
 
     <div>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ccc; margin-bottom: 20px; padding-bottom: 10px;">
+            <span style="font-size: 14px; color: #666;">Hello, {{ Auth::user()->name }}</span>
+            <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+                @csrf
+                <button type="submit" style="background: none; border: none; color: #ff4444; cursor: pointer; text-decoration: underline; font-size: 14px;">Logout</button>
+            </form>
+        </div>
+
         <h1>To-Do List</h1>
 
         <form action="{{ route('tasks.store') }}" method="POST" class="task-form">
