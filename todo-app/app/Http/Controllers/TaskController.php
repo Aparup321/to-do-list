@@ -16,10 +16,12 @@ class TaskController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'scheduled_at' => 'nullable|date',
         ]);
 
         \App\Models\Task::create([
             'title' => $request->title,
+            'scheduled_at' => $request->scheduled_at,
         ]);
 
         return redirect()->back()->with('success', 'Task added successfully.');

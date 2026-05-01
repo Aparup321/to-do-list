@@ -81,6 +81,30 @@
             color: #666;
             font-style: italic;
         }
+
+        .task-input-time {
+            padding: 8px;
+            font-size: 14px;
+            color: #555;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .task-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .task-title {
+            font-weight: 500;
+        }
+
+        .task-time {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+        }
     </style>
 </head>
 <body>
@@ -91,6 +115,7 @@
         <form action="{{ route('tasks.store') }}" method="POST" class="task-form">
             @csrf
             <input type="text" name="title" class="task-input" placeholder="What needs to be done?" required autofocus autocomplete="off">
+            <input type="datetime-local" name="scheduled_at" class="task-input-time" aria-label="Schedule Task" title="Schedule Date & Time">
             <button type="submit" class="btn">Add Task</button>
         </form>
 
@@ -103,7 +128,12 @@
                             @csrf
                             @method('PATCH')
                             <input type="checkbox" onchange="this.form.submit()" {{ $task->is_completed ? 'checked' : '' }}>
-                            <span>{{ $task->title }}</span>
+                            <div class="task-details">
+                                <span class="task-title">{{ $task->title }}</span>
+                                @if($task->scheduled_at)
+                                    <span class="task-time">📅 {{ $task->scheduled_at->format('M d, Y g:i A') }}</span>
+                                @endif
+                            </div>
                         </form>
 
                         <div class="task-actions">
